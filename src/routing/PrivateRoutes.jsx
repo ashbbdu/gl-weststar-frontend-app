@@ -6,7 +6,7 @@ import Sidebar from "../components/Sidebar";
 const PrivateRoute = ({ children }) => {
   const isSmallScreen = useMediaQuery('(max-width:600px)')
   // const { token } = useSelector((state) => state.auth);
-  const token = "token";
+  const token = localStorage.getItem("token") ? localStorage.getItem("token") : null;
   const [drawerOpen, setDrawerOpen] = useState(false);
   const toggleDrawer = (open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {

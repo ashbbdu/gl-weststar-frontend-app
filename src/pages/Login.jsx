@@ -1,14 +1,16 @@
 // src/components/Login.jsx
 import { Box, Button, Paper, TextField, Typography } from '@mui/material';
 import { useFormik } from 'formik';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { selectTheme } from '../redux/themeSlice';
+import { login } from '../services/authApi';
 
 const Login = () => {
   const themeChoice = useSelector(selectTheme);
-
-  // Formik setup with Yup validation
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -19,8 +21,9 @@ const Login = () => {
       password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
     }),
     onSubmit: (values) => {
-      // Handle form submission (e.g., authentication)
       console.log('Logging in with:', values);
+      const { email , password } = values;
+      dispatch(login(email , password , navigate))
     },
   });
 
@@ -34,7 +37,7 @@ const Login = () => {
         margin: 'auto',
         marginTop: '100px',
         borderRadius: '10px',
-        backgroundColor: themeChoice === 'dark' ? '#424242' : '#fff', // Background color based on theme
+        backgroundColor: themeChoice === 'dark' ? '#424242' : '#fff', 
       }}
     >
       <Typography variant="h4" component="h1" gutterBottom>
@@ -50,7 +53,7 @@ const Login = () => {
           error={formik.touched.email && Boolean(formik.errors.email)}
           helperText={formik.touched.email && formik.errors.email}
           InputProps={{
-            style: { backgroundColor: themeChoice === 'dark' ? '#616161' : '#fff' }, // Input background based on theme
+            style: { backgroundColor: themeChoice === 'dark' ? '#616161' : '#fff' }, 
           }}
         />
         <TextField

@@ -4,12 +4,14 @@ import { CssBaseline } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "./App.css";
 import ThemeSwitcher from './components/ThemeSwitcher';
 import { selectTheme } from './redux/themeSlice';
 import Routing from './routing/Routing';
 const App = () => {
-
+  const { loading } = useSelector(state => state.auth)
   const themeChoice = useSelector(selectTheme);
 
   const themes = {
@@ -73,6 +75,8 @@ const App = () => {
   
       <ThemeSwitcher />
       <div className=''>
+       {loading &&  <div>Loading....</div>}
+        <ToastContainer />
          <Routing /> 
       </div>
     </ThemeProvider>

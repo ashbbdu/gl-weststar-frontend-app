@@ -2,11 +2,15 @@
 import { Box, Button, Container, Grid, Paper, TextField, Typography } from '@mui/material';
 import { useFormik } from 'formik';
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { selectTheme } from '../redux/themeSlice';
+import { signUp } from '../services/authApi';
 
 const Signup = () => {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
   const themeChoice = useSelector(selectTheme);
 
   const formik = useFormik({
@@ -32,14 +36,16 @@ const Signup = () => {
     }),
     onSubmit: (values) => {
       console.log('Signing up with:', values);
+      const {firstName , lastName , email , password} = values
       // Add your signup logic here
+      dispatch(signUp(firstName , lastName , email , password , navigate))
     },
   });
 
   return (
     <Container maxWidth="lg" sx={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: themeChoice === 'dark' ? '#121212' : '#f5f5f5' }}>
       <Grid container spacing={0}>
-        {/* Left Side: Video */}
+
         <Grid item xs={12} md={6} sx={{ display: { xs: 'none', md: 'block' } }}>
           <Box
             component="video"

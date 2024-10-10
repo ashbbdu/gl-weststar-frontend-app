@@ -1,9 +1,10 @@
 import { Box, Button, MenuItem, TextField } from "@mui/material";
 import { Field, Form, Formik } from "formik";
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
+import { creteShipment } from "../services/shippingApi";
 
-// Validation Schema
 const validationSchema = Yup.object().shape({
   shipmentNumber: Yup.string().required("Shipment Number is required"),
   transportType: Yup.string().required("Transport Type is required"),
@@ -30,6 +31,8 @@ const statusOptions = [
 ];
 
 export default function ShipmentForm() {
+    const { token } = useSelector(state => state.auth)
+    const dispatch = useDispatch()
   return (
     <Formik
       initialValues={{
@@ -45,7 +48,9 @@ export default function ShipmentForm() {
       }}
       validationSchema={validationSchema}
       onSubmit={(values) => {
-        console.log(values, "values");
+        console.log(values);
+        
+        dispatch(creteShipment (values , token))
       }}
     >
       {({ errors, touched, handleChange }) => (

@@ -37,7 +37,6 @@ const Signup = () => {
     onSubmit: (values) => {
       console.log('Signing up with:', values);
       const {firstName , lastName , email , password} = values
-      // Add your signup logic here
       dispatch(signUp(firstName , lastName , email , password , navigate))
     },
   });

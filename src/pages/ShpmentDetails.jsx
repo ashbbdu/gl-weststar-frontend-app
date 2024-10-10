@@ -10,7 +10,6 @@ const ShpmentDetails = () => {
     const dispatch = useDispatch()
     const { token } = useSelector(state => state.auth)
     const { shippingData } = useSelector(state => state.shipping)
-    console.log(shippingData , "shippingData");
     
         useEffect(() => {
             dispatch(getAllShipment(token))
@@ -19,7 +18,7 @@ const ShpmentDetails = () => {
   return (
     <div>
         <div className='modal-container'>
-          <CommonModal component={ShipmentForm} />
+          <CommonModal title="Add a new Shipment" component={ShipmentForm} action={"+ New Shipment"} />
         </div>
         <div >
             <DataTable data={shippingData} shipmetTableHeader={shippigDetailsTableHeader} />

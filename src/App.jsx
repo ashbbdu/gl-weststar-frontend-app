@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./App.css";
+import Loader from './components/Loader';
 import ThemeSwitcher from './components/ThemeSwitcher';
 import { selectTheme } from './redux/themeSlice';
 import Routing from './routing/Routing';
@@ -75,7 +76,7 @@ const App = () => {
   
       <ThemeSwitcher />
       <div className=''>
-       {loading &&  <div>Loading....</div>}
+       {loading &&  <Loader />}
         <ToastContainer />
          <Routing /> 
       </div>

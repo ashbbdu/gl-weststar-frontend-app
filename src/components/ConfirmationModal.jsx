@@ -3,6 +3,8 @@ import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteShipment } from '../services/shippingApi';
 
 const style = {
   position: 'absolute',
@@ -19,14 +21,24 @@ const style = {
   overflowY: 'auto', 
 };
 
-export default function CommonModal({ component: Component , title , action}) {
+export default function ConfirmationModal({ actionTitle , title , action , id}) {
+  console.log(id , "id");
+  const { token } = useSelector(state => state.auth)
+  const dispatch = useDispatch()
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+
+  const handleDelete = () => {
+    dispatch(deleteShipment(id , token))
+  }
+
   return (
     <div>
-      <Button variant='contained'  onClick={handleOpen}>{action}</Button>
+      <Button onClick={handleOpen} variant="contained" color="secondary" style={{ marginLeft: '8px' }}>
+         {actionTitle}
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -37,7 +49,14 @@ export default function CommonModal({ component: Component , title , action}) {
           <Typography id="modal-modal-title" variant="h6" component="h2">
            {title}
           </Typography>
-          <Component open={open} setOpen={setOpen} />
+          <Typography >
+            <Button onClick={() => {
+              setOpen(false)    
+              handleDelete()
+             
+            }} variant='contained'>Confirm</Button>
+            <Button onClick={handleClose} variant='contained'>Cancel</Button>
+          </Typography>
         </Box>
       </Modal>
     </div>

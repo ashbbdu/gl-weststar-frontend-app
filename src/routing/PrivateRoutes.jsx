@@ -28,7 +28,7 @@ const PrivateRoute = ({ children }) => {
         </Toolbar>
       </AppBar>
       <Sidebar open={drawerOpen} toggleDrawer={toggleDrawer} />
-          <div className="w-100">
+          <div className="w-100 main-container">
             {" "}
             {children}
           </div>

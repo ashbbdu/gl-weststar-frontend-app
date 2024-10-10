@@ -13,45 +13,20 @@ import {
 } from '@mui/material';
 import React, { useState } from 'react';
 
-// Sample shipment data
-const initialShipments = [
-  {
-    shipmentNumber: "SHP1e23411510111",
-    transportType: "Air",
-    portOfLoading: "JFK International Airport",
-    portOfDischarge: "Heathrow Airport",
-    estimatedTimeOfDeparture: "2024-10-15T14:30:00Z",
-    actualTimeOfDeparture: "2024-10-15T15:00:00Z",
-    estimatedTimeOfArrival: "2024-10-16T10:00:00Z",
-    actualTimeOfArrival: "2024-10-16T11:00:00Z",
-    status: "In Transit",
-  },
-  {
-    shipmentNumber: "SHP1e23411510112",
-    transportType: "Sea",
-    portOfLoading: "Los Angeles",
-    portOfDischarge: "Shanghai",
-    estimatedTimeOfDeparture: "2024-10-10T14:30:00Z",
-    actualTimeOfDeparture: "2024-10-10T15:00:00Z",
-    estimatedTimeOfArrival: "2024-10-20T10:00:00Z",
-    actualTimeOfArrival: "2024-10-20T11:00:00Z",
-    status: "In Transit",
-  },
-  // Add more shipments if needed
-];
-
-const DataTable = ({data}) => {
+const DataTable = ({data , shipmetTableHeader}) => {
   const [shipments, setShipments] = useState(data);
+  console.log(shipments , "shipmentsssssss");
+  
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  const handleDelete = (shipmentNumber) => {
-    setShipments(shipments.filter((shipment) => shipment.shipmentNumber !== shipmentNumber));
-  };
+  // const handleDelete = (shipmentNumber) => {
+  //   setShipments(shipments.filter((shipment) => shipment.shipmentNumber !== shipmentNumber));
+  // };
 
-  const handleEdit = (shipmentNumber) => {
-    console.log(`Edit shipment: ${shipmentNumber}`);
-  };
+  // const handleEdit = (shipmentNumber) => {
+  //   console.log(`Edit shipment: ${shipmentNumber}`);
+  // };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -62,67 +37,33 @@ const DataTable = ({data}) => {
     setPage(0);
   };
 
+//   const dispatch = useDispatch()
+//   useEffect(() => {
+//     dispatch(getAllShipment(token))
+// },[])
+
   return (
     <Box sx={{ width: '100%' }}>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
             <TableRow sx={{ backgroundColor: '#1976d2', color: '#fff' }}>
+          {
+             shipmetTableHeader.map(res => {
+              return (
+                <TableCell sx={{ position: 'sticky', top: 0, zIndex: 1 }} key={res.id}>
+                <Typography variant="subtitle2" fontWeight="bold" color="#fff">
+                  {res.title}
+                </Typography>
+              </TableCell>
+              )
+             })
+          }
               
-              <TableCell sx={{ position: 'sticky', top: 0, zIndex: 1 }}>
-                <Typography variant="subtitle2" fontWeight="bold" color="#fff">
-                  Shipment Number
-                </Typography>
-              </TableCell>
-              <TableCell sx={{ position: 'sticky', top: 0, zIndex: 1 }}>
-                <Typography variant="subtitle2" fontWeight="bold" color="#fff">
-                  Transport Type
-                </Typography>
-              </TableCell>
-              <TableCell sx={{ position: 'sticky', top: 0, zIndex: 1 }}>
-                <Typography variant="subtitle2" fontWeight="bold" color="#fff">
-                  Port of Loading
-                </Typography>
-              </TableCell>
-              <TableCell sx={{ position: 'sticky', top: 0, zIndex: 1 }}>
-                <Typography variant="subtitle2" fontWeight="bold" color="#fff">
-                  Port of Discharge
-                </Typography>
-              </TableCell>
-              <TableCell sx={{ position: 'sticky', top: 0, zIndex: 1 }}>
-                <Typography variant="subtitle2" fontWeight="bold" color="#fff">
-                  Estimated Time of Departure
-                </Typography>
-              </TableCell>
-              <TableCell sx={{ position: 'sticky', top: 0, zIndex: 1 }}>
-                <Typography variant="subtitle2" fontWeight="bold" color="#fff">
-                  Actual Time of Departure
-                </Typography>
-              </TableCell>
-              <TableCell sx={{ position: 'sticky', top: 0, zIndex: 1 }}>
-                <Typography variant="subtitle2" fontWeight="bold" color="#fff">
-                  Estimated Time of Arrival
-                </Typography>
-              </TableCell>
-              <TableCell sx={{ position: 'sticky', top: 0, zIndex: 1 }}>
-                <Typography variant="subtitle2" fontWeight="bold" color="#fff">
-                  Actual Time of Arrival
-                </Typography>
-              </TableCell>
-              <TableCell sx={{ position: 'sticky', top: 0, zIndex: 1 }}>
-                <Typography variant="subtitle2" fontWeight="bold" color="#fff">
-                  Status
-                </Typography>
-              </TableCell>
-              <TableCell sx={{ position: 'sticky', top: 0, zIndex: 1 }}>
-                <Typography variant="subtitle2" fontWeight="bold" color="#fff">
-                  Actions
-                </Typography>
-              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {shipments.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((shipment, index) => (
+            {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((shipment, index) => (
               <TableRow key={index}>
                 <TableCell>{shipment.shipmentNumber}</TableCell>
                 <TableCell>{shipment.transportType}</TableCell>
@@ -149,7 +90,7 @@ const DataTable = ({data}) => {
       <TablePagination
         rowsPerPageOptions={[5, 10, 25]}
         component="div"
-        count={shipments.length}
+        count={data.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}

@@ -16,6 +16,13 @@
   padding: 20px;
 } */
 
-.table-container {
-  padding: 20px;
+.main-container {
+  padding: 10px;
+  margin-left: 242px;
+}
+
+@media (max-width : 599px) {
+  .main-container {
+    margin-left: 0;
+  }
 }

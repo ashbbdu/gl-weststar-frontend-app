@@ -1,14 +1,20 @@
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import DirectionsBoatIcon from '@mui/icons-material/DirectionsBoat';
+
 export const sideBarMenuItems = [
   {
     id: 1,
     title: "Dashboard",
     url: "/dashboard",
+    icon : DashboardIcon
   },
   {
     id: 2,
     title: "Shipment Details",
     url: "/shipmentdetails",
+    icon : DirectionsBoatIcon
   },
+  
 ];
 
 export const shippigDetailsTableHeader = [

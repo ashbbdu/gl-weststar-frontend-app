@@ -22,7 +22,6 @@ const style = {
 };
 
 export default function ConfirmationModal({ actionTitle , title , action , id}) {
-  console.log(id , "id");
   const { token } = useSelector(state => state.auth)
   const dispatch = useDispatch()
   const [open, setOpen] = React.useState(false);

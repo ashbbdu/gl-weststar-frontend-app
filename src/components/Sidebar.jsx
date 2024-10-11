@@ -1,59 +1,68 @@
 // src/components/Sidebar.jsx
-import { Drawer, List, ListItem, ListItemText } from '@mui/material';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import { sideBarMenuItems } from '../constants';
-import { logout } from '../services/authApi';
-
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import {
+  Drawer,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText
+} from "@mui/material";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import React from "react";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { sideBarMenuItems } from "../constants";
+import { logout } from "../services/authApi";
 const Sidebar = ({ open, toggleDrawer }) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
-  const isSmallScreen = useMediaQuery('(max-width:600px)'); // Change the breakpoint as needed
+  const navigate = useNavigate();
+  const isSmallScreen = useMediaQuery("(max-width:600px)"); // Change the breakpoint as needed
 
   const handleLogout = () => {
-    dispatch(logout(navigate))
-  }
+    dispatch(logout(navigate));
+  };
 
   const drawerContent = (
-    <div className='mt-10'>
-      <List>
+    <div className="mt-10">
+      <List style={{display : "flex" , flexDirection : "column" , justifyContent :  "space-between" , height :  "100vh"}}>
+        <div>
         {sideBarMenuItems.map((res) => (
-          <Link className='menu-items' key={res.id} to={res.url}>
-            <ListItem button >
-            <ListItemText primary={res.title} />
-          </ListItem>
-          </Link>
-          
-        ))}
-       <Link onClick={handleLogout} className='menu-items' to={"/"}>
+          <Link className="menu-items" key={res.id} to={res.url}>
             <ListItem button>
+              <ListItemIcon>{<res.icon />}</ListItemIcon>
+              <ListItemText primary={res.title} />
+            </ListItem>
+          </Link>
+        ))}
+      </div>
+        {/* <Divider /> */}
+        <div>
+        <Link onClick={handleLogout} className="menu-items" to={"/"}>
+          <ListItem button>
+            <ListItemIcon>{<ExitToAppIcon />}</ListItemIcon>
             <ListItemText primary={"Logout"} />
           </ListItem>
-          </Link>
+        </Link>
+        </div>
       </List>
-      
-      {/* <Divider /> */}
     </div>
   );
- 
+
   return (
-    <div className='sidebar'>
-        <Drawer
-      
-      anchor="left"
-      open={open || !isSmallScreen}
-      onClose={toggleDrawer(false)}
-      variant={isSmallScreen ? "temporary" : "persistent"} 
-      sx={{
-        '& .MuiDrawer-paper': {
-          width: 240,
-        },
-      }}
-    >
-      {drawerContent}
-    </Drawer>
+    <div className="sidebar">
+      <Drawer
+        anchor="left"
+        open={open || !isSmallScreen}
+        onClose={toggleDrawer(false)}
+        variant={isSmallScreen ? "temporary" : "persistent"}
+        sx={{
+          "& .MuiDrawer-paper": {
+            width: 240,
+          },
+        }}
+      >
+        {drawerContent}
+      </Drawer>
     </div>
   );
 };

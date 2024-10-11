@@ -20,7 +20,8 @@ const App = () => {
       palette: {
         mode: 'light',
         primary: { main: 'rgba(25, 118, 210, 0.85)' }, // Softened blue with opacity
-        background: { default: '#f0f2f5' }, // Light gray background for a cleaner look
+        secondary: { main: 'rgba(25, 118, 210, 0.85)' }, // Matching primary
+        background: { default: '#f0f2f5' }, // Light gray background
         text: { primary: '#333' }, // Darker text for better contrast
       },
     },
@@ -28,6 +29,7 @@ const App = () => {
       palette: {
         mode: 'dark',
         primary: { main: 'rgba(144, 202, 249, 0.85)' }, // Softer light blue with opacity
+        secondary: { main: 'rgba(144, 202, 249, 0.85)' }, // Matching primary
         background: { default: '#1e1e1e' }, // Deep dark gray for modern dark theme
         text: { primary: '#e0e0e0' }, // Light gray text for readability on dark background
       },
@@ -36,6 +38,7 @@ const App = () => {
       palette: {
         mode: 'light',
         primary: { main: 'rgba(244, 67, 54, 0.85)' }, // Softened red with opacity
+        secondary: { main: 'rgba(244, 67, 54, 0.85)' }, // Matching primary
         background: { default: '#ffebee' }, // Light red tint background for subtlety
         text: { primary: '#b71c1c' }, // Darker red text for better contrast
       },
@@ -44,6 +47,7 @@ const App = () => {
       palette: {
         mode: 'light',
         primary: { main: 'rgba(33, 150, 243, 0.85)' }, // Softened blue with opacity
+        secondary: { main: 'rgba(33, 150, 243, 0.85)' }, // Matching primary
         background: { default: '#e3f2fd' }, // Light blue tint background
         text: { primary: '#0d47a1' }, // Darker blue for better readability
       },
@@ -52,7 +56,8 @@ const App = () => {
       palette: {
         mode: 'light',
         primary: { main: 'rgba(255, 235, 59, 0.85)' }, // Softened yellow with opacity
-        background: { default: '#fffde7' }, // Light yellow tint for background
+        secondary: { main: 'rgba(255, 235, 59, 0.85)' }, // Matching primary
+        background: { default: '#fffde7' }, // Light yellow tint background
         text: { primary: '#fbc02d' }, // Medium yellow for contrast
       },
     },
@@ -60,11 +65,13 @@ const App = () => {
       palette: {
         mode: 'light',
         primary: { main: 'rgba(76, 175, 80, 0.85)' }, // Softened green with opacity
+        secondary: { main: 'rgba(76, 175, 80, 0.85)' }, // Matching primary
         background: { default: '#e8f5e9' }, // Light green tint for background
         text: { primary: '#1b5e20' }, // Dark green text for contrast
       },
     },
   };
+  
   
 
   const theme = createTheme(themes[themeChoice] || themes.light);

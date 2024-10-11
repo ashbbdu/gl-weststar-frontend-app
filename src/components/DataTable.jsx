@@ -13,28 +13,24 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import ConfirmationModal from "../components/ConfirmationModal";
+import ShipmentFormModal from "../components/ShipmentFormModal"; // Modal that contains the form
 
 const DataTable = ({ data, shipmetTableHeader }) => {
   const [shipments, setShipments] = useState(data);
-  console.log(shipments, "shipmentsssssss");
-
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [selectedShipment, setSelectedShipment] = useState(null); 
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false); 
 
-  const handleDelete = (shipmentNumber) => {
-    console.log(shipmentNumber, "ship number");
+  const handleEdit = (shipment) => {
+    setSelectedShipment(shipment);
+    setIsEditModalOpen(true); 
   };
 
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
+  const handleCloseModal = () => {
+    setIsEditModalOpen(false);
+    setSelectedShipment(null);
   };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -42,22 +38,16 @@ const DataTable = ({ data, shipmetTableHeader }) => {
         <Table>
           <TableHead>
             <TableRow sx={{ backgroundColor: "#1976d2", color: "#fff" }}>
-              {shipmetTableHeader.map((res) => {
-                return (
-                  <TableCell
-                    sx={{ position: "sticky", top: 0, zIndex: 1 }}
-                    key={res.id}
-                  >
-                    <Typography
-                      variant="subtitle2"
-                      fontWeight="bold"
-                      color="#fff"
-                    >
-                      {res.title}
-                    </Typography>
-                  </TableCell>
-                );
-              })}
+              {shipmetTableHeader.map((res) => (
+                <TableCell
+                  sx={{ position: "sticky", top: 0, zIndex: 1 }}
+                  key={res.id}
+                >
+                  <Typography variant="subtitle2" fontSize={12} fontWeight="bold" color="#fff">
+                    {res.title}
+                  </Typography>
+                </TableCell>
+              ))}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -84,20 +74,18 @@ const DataTable = ({ data, shipmetTableHeader }) => {
                     {new Date(shipment.actualTimeOfArrival).toLocaleString()}
                   </TableCell>
                   <TableCell>{shipment.status}</TableCell>
-                  <TableCell style={{ display: "flex" }}>
+                  <TableCell style={{display : "flex"}}>
                     <Button
                       variant="contained"
                       color="primary"
-                      onClick={() => handleEdit(shipment.shipmentNumber)}
+                      onClick={() => handleEdit(shipment)} // Pass the shipment for editing
                     >
                       Edit
                     </Button>
-                    {/* <CommonModal  title="Are you sure you want to delete this shipmenet ?" component={DeletePrompt} action="Delete" /> */}
                     <ConfirmationModal
                       actionTitle={"Delete"}
-                      title={"Are you sure you want to delete this shipmenet ?"}
+                      title={"Are you sure you want to delete this shipment?"}
                       id={shipment._id}
-                      // action={handleDelete(shipment._id)}
                     />
                   </TableCell>
                 </TableRow>
@@ -111,9 +99,20 @@ const DataTable = ({ data, shipmetTableHeader }) => {
         count={data.length}
         rowsPerPage={rowsPerPage}
         page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
+        onPageChange={(event, newPage) => setPage(newPage)}
+        onRowsPerPageChange={(event) =>
+          setRowsPerPage(parseInt(event.target.value, 10))
+        }
       />
+
+   
+      {isEditModalOpen && (
+        <ShipmentFormModal
+          open={isEditModalOpen}
+          onClose={handleCloseModal}
+          shipmentData={selectedShipment} 
+        />
+      )}
     </Box>
   );
 };

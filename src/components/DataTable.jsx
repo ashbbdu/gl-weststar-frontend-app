@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import ConfirmationModal from "../components/ConfirmationModal";
-import ShipmentFormModal from "../components/ShipmentFormModal"; // Modal that contains the form
+import ShipmentFormModal from "../components/ShipmentFormModal";
 
 const DataTable = ({ data, shipmetTableHeader }) => {
   const [shipments, setShipments] = useState(data);
@@ -34,13 +34,13 @@ const DataTable = ({ data, shipmetTableHeader }) => {
 
   return (
     <Box sx={{ width: "100%" }}>
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} style={{height : 450 , whiteSpace : "nowrap"}}>
         <Table>
-          <TableHead>
+          <TableHead variant="primary">
             <TableRow sx={{ backgroundColor: "#1976d2", color: "#fff" }}>
               {shipmetTableHeader.map((res) => (
                 <TableCell
-                  sx={{ position: "sticky", top: 0, zIndex: 1 }}
+                  sx={{ backgroundColor: 'primary.main' , top: 0, zIndex: 1 }}
                   key={res.id}
                 >
                   <Typography variant="subtitle2" fontSize={12} fontWeight="bold" color="#fff">
@@ -78,7 +78,7 @@ const DataTable = ({ data, shipmetTableHeader }) => {
                     <Button
                       variant="contained"
                       color="primary"
-                      onClick={() => handleEdit(shipment)} // Pass the shipment for editing
+                      onClick={() => handleEdit(shipment)} 
                     >
                       Edit
                     </Button>

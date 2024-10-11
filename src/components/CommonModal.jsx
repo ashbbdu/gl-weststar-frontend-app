@@ -27,7 +27,7 @@ export default function CommonModal({ component: Component, title, action }) {
 
   return (
     <div>
-      <Button variant="contained" onClick={handleOpen}>
+      <Button variant="contained" onClick={handleOpen} sx={{marginBottom : 1}}>
         {action}
       </Button>
       <Modal

@@ -73,13 +73,11 @@ export default function ShipmentForm({ initialValues = {}, onClose }) {
     >
       {({ errors, touched, handleChange }) => (
       <Form>
-      {/* Flexbox Container */}
       <Box 
         display="flex" 
         flexDirection="column" 
         justifyContent="space-between"
       >
-        {/* Shipment Number Field */}
         <Box m={1}>
           <Field
             as={TextField}
@@ -114,7 +112,6 @@ export default function ShipmentForm({ initialValues = {}, onClose }) {
           </Field>
         </Box>
 
-        {/* Port of Loading Field */}
         <Box m={1}>
           <Field
             as={TextField}
@@ -128,7 +125,6 @@ export default function ShipmentForm({ initialValues = {}, onClose }) {
           />
         </Box>
 
-        {/* Port of Discharge Field */}
         <Box m={1}>
           <Field
             as={TextField}
@@ -142,7 +138,6 @@ export default function ShipmentForm({ initialValues = {}, onClose }) {
           />
         </Box>
 
-        {/* Estimated Time of Departure */}
         <Box m={1}>
           <Field
             as={TextField}
@@ -158,7 +153,6 @@ export default function ShipmentForm({ initialValues = {}, onClose }) {
           />
         </Box>
 
-        {/* Actual Time of Departure */}
         <Box m={1}>
           <Field
             as={TextField}
@@ -174,7 +168,6 @@ export default function ShipmentForm({ initialValues = {}, onClose }) {
           />
         </Box>
 
-        {/* Estimated Time of Arrival */}
         <Box m={1}>
           <Field
             as={TextField}
@@ -190,7 +183,6 @@ export default function ShipmentForm({ initialValues = {}, onClose }) {
           />
         </Box>
 
-        {/* Actual Time of Arrival */}
         <Box m={1}>
           <Field
             as={TextField}
@@ -206,7 +198,6 @@ export default function ShipmentForm({ initialValues = {}, onClose }) {
           />
         </Box>
 
-        {/* Status Field (Dropdown) */}
         <Box m={1}>
           <Field
             as={TextField}
@@ -228,7 +219,6 @@ export default function ShipmentForm({ initialValues = {}, onClose }) {
         </Box>
       </Box>
 
-      {/* Submit Button */}
       <Box mt={2}>
         <Button type="submit" variant="contained" color="primary" fullWidth>
           Submit

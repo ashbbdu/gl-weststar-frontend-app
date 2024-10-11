@@ -1,4 +1,3 @@
-// src/components/Sidebar.jsx
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import {
   Drawer,
@@ -16,7 +15,7 @@ import { logout } from "../services/authApi";
 const Sidebar = ({ open, toggleDrawer }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const isSmallScreen = useMediaQuery("(max-width:600px)"); // Change the breakpoint as needed
+  const isSmallScreen = useMediaQuery("(max-width:600px)"); //
 
   const handleLogout = () => {
     dispatch(logout(navigate));
@@ -29,7 +28,7 @@ const Sidebar = ({ open, toggleDrawer }) => {
         {sideBarMenuItems.map((res) => (
           <Link className="menu-items" key={res.id} to={res.url}>
             <ListItem button>
-              <ListItemIcon>{<res.icon />}</ListItemIcon>
+              <ListItemIcon sx={{color : "primary.main"}}>{<res.icon />}</ListItemIcon>
               <ListItemText primary={res.title} />
             </ListItem>
           </Link>
@@ -39,7 +38,7 @@ const Sidebar = ({ open, toggleDrawer }) => {
         <div>
         <Link onClick={handleLogout} className="menu-items" to={"/"}>
           <ListItem button>
-            <ListItemIcon>{<ExitToAppIcon />}</ListItemIcon>
+            <ListItemIcon sx={{color : "primary.main"}}>{<ExitToAppIcon />}</ListItemIcon>
             <ListItemText primary={"Logout"} />
           </ListItem>
         </Link>

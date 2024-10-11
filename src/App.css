@@ -19,6 +19,8 @@
 .main-container {
   padding: 10px;
   margin-left: 242px;
+  height: calc(100vh - 66px);
+  overflow: auto;
 }
 
 @media (max-width : 599px) {

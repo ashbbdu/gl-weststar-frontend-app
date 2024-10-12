@@ -50,7 +50,7 @@ const DataTable = ({ data, shipmetTableHeader }) => {
               ))}
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody sx={{position  : "relative"}}>
            
             {data.length > 0 ? data
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
@@ -90,7 +90,7 @@ const DataTable = ({ data, shipmetTableHeader }) => {
                     />
                   </TableCell>
                 </TableRow>
-              )) : <div>No Records Found !</div>}
+              )) : <Box sx={{position : "absolute" , left : "50%" , marginTop : "150px" , fontSize : 24 , fontWeight : "bold"}}>No Records Found !</Box>}
           </TableBody>
         </Table>
       </TableContainer>

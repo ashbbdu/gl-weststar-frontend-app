@@ -20,7 +20,7 @@ const ShipmentFormModal = ({ open, onClose, shipmentData }) => {
     p: 4,
     overflowY: "auto",
   };
-
+  
   return (
     <Modal
       open={open}
@@ -41,14 +41,7 @@ const ShipmentFormModal = ({ open, onClose, shipmentData }) => {
           onClose={onClose}
           id={shipmentData._id}
         />
-        {/* <Button
-          onClick={onClose}
-          variant="contained"
-          color="secondary"
-          sx={{ mt: 2 }}
-        >
-          Cancel
-        </Button> */}
+
       </Box>
     </Modal>
   );

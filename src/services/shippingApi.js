@@ -23,7 +23,7 @@ export function getAllShipment(token) {
   };
 }
 
-export function creteShipment(values, token) {
+export function creteShipment(values, token , onClose) {
   return async (dispatch) => {
     dispatch(setLoading(true));
     try {
@@ -34,18 +34,19 @@ export function creteShipment(values, token) {
         { Authorization: `Bearer ${token}` }
       );
       console.log(response);
+      onClose()
       if (response.status === 201) {
         dispatch(getAllShipment(token));
+        onClose()
       }
     } catch (error) {
       console.log(error, "error");
-      //   dispatch(setShippingData([]))
     }
     dispatch(setLoading(false));
   };
 }
 
-export function updateShipment(values, id, token) {
+export function updateShipment(values, id, token , onClose) {
   return async (dispatch) => {
     dispatch(setLoading(true));
     try {
@@ -59,6 +60,7 @@ export function updateShipment(values, id, token) {
       toast.success(response.data.message);
       if (response.status === 200) {
         dispatch(getAllShipment(token));
+        onClose()
       }
     } catch (error) {
       console.log(error, "error");

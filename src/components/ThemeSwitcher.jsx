@@ -1,55 +1,87 @@
-// src/components/ThemeSwitcher.js
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid } from '@mui/material';
+import { Button, Grid, Popover } from '@mui/material';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { toggleTheme } from '../redux/themeSlice';
 
-const themes = ['light', 'dark', 'red', 'blue', 'yellow', 'green'];
+const themes = [
+  { name: 'light', color: '#f0f0f0' }, 
+  { name: 'dark', color: '#333' }, 
+  { name: 'red', color: '#f44336' }, 
+  { name: 'blue', color: '#2196f3' }, 
+  { name: 'green', color: '#4caf50' }
+];
 
 const ThemeSwitcher = () => {
   const dispatch = useDispatch();
-  const [open, setOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget); // Open Popover anchored to the button
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setAnchorEl(null); // Close Popover
   };
 
   const handleThemeChange = (theme) => {
     dispatch(toggleTheme(theme));
-    handleClose();
+    handleClose(); // Close Popover after theme selection
   };
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'theme-switcher-popover' : undefined;
 
   return (
     <div>
-      <Button variant="contained" onClick={handleClickOpen} style={{ position: 'fixed', bottom: 20, right: 20 }}>
+      <Button
+        variant="contained"
+        onClick={handleClick}
+        style={{ position: 'fixed', bottom: 20, right: 20 }}
+      >
         Change Theme
       </Button>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Select a Theme</DialogTitle>
-        <DialogContent>
-          <Grid container spacing={2}>
-            {themes.map((theme) => (
-              <Grid item xs={6} key={theme}>
-                <Button
-                  variant="contained"
-                  fullWidth
-                  onClick={() => handleThemeChange(theme)}
-                  style={{ backgroundColor: theme === 'light' ? '#f0f0f0' : theme === 'dark' ? '#333' : theme }}
-                >
-                  {theme.charAt(0).toUpperCase() + theme.slice(1)}
-                </Button>
-              </Grid>
-            ))}
-          </Grid>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-        </DialogActions>
-      </Dialog>
+
+      <Popover
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+      >
+        <Grid
+          container
+          direction="row" // Horizontal alignment
+          spacing={2} // Space between buttons
+          sx={{
+            padding: 2,
+            justifyContent: 'center', // Center-align the buttons in the row
+          }}
+        >
+          {themes.map((theme) => (
+            <Grid item key={theme.name}>
+              <Button
+                variant="contained"
+                onClick={() => handleThemeChange(theme.name)}
+                style={{
+                  backgroundColor: theme.color,
+                  borderRadius: '50%', // Circular shape
+                  width: 40, // Circular button width
+                  height: 40, // Circular button height
+                  minWidth: 0, // Remove default button width
+                  padding: 0, // No extra padding
+                }}
+              />
+            </Grid>
+          ))}
+        </Grid>
+      </Popover>
     </div>
   );
 };

@@ -4,7 +4,7 @@ import {
   List,
   ListItem,
   ListItemIcon,
-  ListItemText
+  ListItemText,
 } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import React, { useState } from "react";
@@ -19,7 +19,7 @@ const Sidebar = ({ open, toggleDrawer }) => {
   const isSmallScreen = useMediaQuery("(max-width:600px)");
 
   // Initialize state to track the active menu item, default to the first item
-  const [activeItem, setActiveItem] = useState(sideBarMenuItems[0].id); // Set to the ID of the first item
+  const [activeItem, setActiveItem] = useState(sideBarMenuItems[0].id);
 
   const handleLogout = () => {
     dispatch(logout(navigate));
@@ -31,12 +31,47 @@ const Sidebar = ({ open, toggleDrawer }) => {
 
   const drawerContent = (
     <div className="mt-10">
-      <List style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100vh" , padding : 0 }}>
+      <List
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+          height: "100vh",
+          padding: 0,
+        }}
+      >
         <div>
           {sideBarMenuItems.map((res) => (
-            <Link className="menu-items" key={res.id} to={res.url} onClick={() => handleItemClick(res.id)}>
-              <ListItem button selected={activeItem === res.id} sx={{ backgroundColor: activeItem === res.id ? 'rgba(0, 0, 0, 0.1)' : 'inherit' }}>
-                <ListItemIcon sx={{ color: "primary.main" }}>{<res.icon />}</ListItemIcon>
+            <Link
+              className="menu-items"
+              key={res.id}
+              to={res.url}
+              onClick={() => handleItemClick(res.id)}
+            >
+              <ListItem
+                button
+                selected={activeItem === res.id}
+                sx={{
+                  padding : "16px",
+                  backgroundColor:
+                    activeItem === res.id
+                      ? (theme) => theme.palette.primary.main // Use primary color from theme for active
+                      : "inherit",
+                  color:
+                    activeItem === res.id
+                      ? (theme) => theme.palette.text.secondary // Use secondary text color from theme for active text
+                      : "inherit",
+                  "&:hover": {
+                    backgroundColor:
+                      activeItem === res.id
+                        ? (theme) => theme.palette.primary.main // Keep active item's background the same on hover
+                        : (theme) => theme.palette.action.hover, // Change background on hover for non-active items
+                  },
+                }}
+              >
+                <ListItemIcon sx={{ color: "inherit" }}>
+                  {<res.icon />}
+                </ListItemIcon>
                 <ListItemText primary={res.title} />
               </ListItem>
             </Link>
@@ -45,7 +80,9 @@ const Sidebar = ({ open, toggleDrawer }) => {
         <div>
           <Link onClick={handleLogout} className="menu-items" to={"/"}>
             <ListItem button>
-              <ListItemIcon sx={{ color: "primary.main" }}>{<ExitToAppIcon />}</ListItemIcon>
+              <ListItemIcon sx={{ color: "primary.main" }}>
+                <ExitToAppIcon />
+              </ListItemIcon>
               <ListItemText primary={"Logout"} />
             </ListItem>
           </Link>

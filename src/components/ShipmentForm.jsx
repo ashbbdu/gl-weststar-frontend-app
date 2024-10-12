@@ -65,12 +65,8 @@ export default function ShipmentForm({ initialValues = {}, onClose , action , id
       }}
       validationSchema={validationSchema}
       onSubmit={(values) => {
-        console.log(values , "values");
-        
-        action === "Edit Shipment" ? dispatch(updateShipment(values , id , token)) :   dispatch(creteShipment(values , token));
-        
-      
-        onClose();
+    
+        action === "Edit Shipment" ? dispatch(updateShipment(values , id , token , onClose)) :   dispatch(creteShipment(values , token , onClose ));
         
       }}
     >
@@ -223,7 +219,7 @@ export default function ShipmentForm({ initialValues = {}, onClose , action , id
       </Box>
 
       <Box mt={2}>
-        <Button type="submit" variant="contained" color="primary" fullWidth>
+        <Button  type="submit" variant="contained" color="primary" fullWidth>
          {action === "Edit Shipment" ? "Update" : "Create"}
         </Button>
       </Box>

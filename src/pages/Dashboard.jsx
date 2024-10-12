@@ -32,7 +32,7 @@ const Dashboard = () => {
             console.log(res ,"res");
             
             return (
-                <Card key={res.id} sx={{ mb: 2, flex: 1, mx: { sm: 1 } }}>
+                <Card key={res.id} sx={{ mb: 2, flex: 1, mx: { sm: 1 }, backgroundColor : "card.default" }}>
                 <CardContent sx={{display : "flex" , alignItems : "center" , justifyContent : "center"}}>
                 <ListItemIcon sx={{color : "primary.main"}}>{<res.icon />}</ListItemIcon> 
                  

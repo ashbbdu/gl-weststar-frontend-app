@@ -1,4 +1,3 @@
-// src/main.jsx
 import { configureStore } from "@reduxjs/toolkit";
 import React from "react";
 import ReactDOM from "react-dom/client";
@@ -17,7 +16,6 @@ const store = configureStore({
   },
 });
 
-// Create a root element
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>

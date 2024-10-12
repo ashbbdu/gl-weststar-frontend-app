@@ -1,4 +1,3 @@
-// src/components/Login.jsx
 import { Box, Button, Paper, TextField, Typography } from '@mui/material';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
@@ -32,14 +31,13 @@ const Login = () => {
   return (
     <Box
       sx={{
-        // Set the background image
         backgroundImage: `url(${backgroundImage})`,
-        backgroundSize: 'cover', // Make sure the image covers the entire box
-        backgroundPosition: 'center', // Center the background image
-        height: '100vh', // Set the height to full viewport
+        backgroundSize: 'cover', 
+        backgroundPosition: 'center', 
+        height: '100vh',
         display: 'flex',
-        alignItems: 'center', // Center vertically
-        justifyContent: 'center', // Center horizontally
+        alignItems: 'center', 
+        justifyContent: 'center', 
       }}
     >
       <Paper
@@ -49,7 +47,7 @@ const Login = () => {
           maxWidth: 400,
           borderRadius: '10px',
           backgroundColor: themeChoice === 'dark' ? '#424242' : '#fff',
-          opacity: 0.9, // Optional: make it slightly transparent
+          opacity: 0.9,
         }}
       >
         <Typography variant="h4" component="h1" gutterBottom>

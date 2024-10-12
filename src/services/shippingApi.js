@@ -46,6 +46,31 @@ export function creteShipment(values , token) {
 }
 
 
+export function updateShipment(id , token) {
+    return async (dispatch) => {
+      dispatch(setLoading(true));
+      try {
+        const response = await apiConnector(
+          "DELETE",
+         
+          `${shipmentEndpoints.DELETE_SHIPMENT_API}/${id}`,
+          null,
+          { Authorization: `Bearer ${token}` }
+        );
+        console.log(response);
+        toast.success(response.data.msg)
+        if(response.status === 200) {
+            dispatch(getAllShipment(token))
+        }
+      } catch (error) {
+        console.log(error, "error");
+        //   dispatch(setShippingData([]))
+      }
+      dispatch(setLoading(false));
+    };
+}
+
+
 export function deleteShipment(id , token) {
     return async (dispatch) => {
       dispatch(setLoading(true));

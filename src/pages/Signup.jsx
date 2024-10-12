@@ -45,25 +45,24 @@ const Signup = () => {
   return (
     <Box
       sx={{
-        // Set the background image
         backgroundImage: `url(${backgroundImage})`,
-        backgroundSize: 'cover', // Make sure the image covers the entire box
-        backgroundPosition: 'center', // Center the background image
-        height: '100vh', // Set the height to full viewport
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        height: '100vh', 
         display: 'flex',
-        alignItems: 'center', // Center vertically
-        justifyContent: 'center', // Center horizontally
+        alignItems: 'center',
+        justifyContent: 'center', 
       }}
     >
       <Paper
         elevation={3}
         sx={{
           padding: 3,
-          maxWidth: 500, // Set max width to 500
-          width: '100%', // Set width to 100%
+          maxWidth: 500,
+          width: '100%',
           borderRadius: '10px',
           backgroundColor: themeChoice === 'dark' ? '#424242' : '#fff',
-          opacity: 0.9, // Optional: make it slightly transparent
+          opacity: 0.9,
         }}
       >
         <Typography variant="h4" component="h1" gutterBottom>

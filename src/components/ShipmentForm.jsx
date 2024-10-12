@@ -30,7 +30,7 @@ const statusOptions = [
   { value: "Delayed", label: "Delayed" },
 ];
 
-export default function ShipmentForm({ initialValues = {}, onClose }) {
+export default function ShipmentForm({ initialValues = {}, onClose , action}) {
     const dispatch = useDispatch()
     const { token } = useSelector(state => state.auth)
 
@@ -66,7 +66,10 @@ export default function ShipmentForm({ initialValues = {}, onClose }) {
       validationSchema={validationSchema}
       onSubmit={(values) => {
         console.log(values);
-        dispatch(creteShipment(values , token))
+        // Add edit logic here
+        action === "Edit Shipment" ? console.log("Edit ") :   dispatch(creteShipment(values , token));
+        
+      
         onClose();
         
       }}

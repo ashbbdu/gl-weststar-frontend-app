@@ -13,6 +13,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { sideBarMenuItems } from "../constants";
 import { logout } from "../services/authApi";
 const Sidebar = ({ open, toggleDrawer }) => {
+  const firstName = "Ashish";
+  const lastName ="Srivastava"
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isSmallScreen = useMediaQuery("(max-width:600px)"); //
@@ -23,6 +25,7 @@ const Sidebar = ({ open, toggleDrawer }) => {
 
   const drawerContent = (
     <div className="mt-10">
+    
       <List style={{display : "flex" , flexDirection : "column" , justifyContent :  "space-between" , height :  "100vh"}}>
         <div>
         {sideBarMenuItems.map((res) => (

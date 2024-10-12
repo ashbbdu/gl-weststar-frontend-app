@@ -3,21 +3,21 @@ import React from "react";
 import ShipmentForm from "./ShipmentForm";
 
 const ShipmentFormModal = ({ open, onClose, shipmentData }) => {
-    console.log(shipmentData);
-    
+  console.log(shipmentData);
+
   const style = {
-    position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-//   width: 400,
-  width: "600px",
-  maxHeight: '80vh',
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-  overflowY: 'auto', 
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "100%",
+    maxWidth: "600px",
+    maxHeight: "80vh",
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+    overflowY: "auto",
   };
 
   return (
@@ -31,8 +31,13 @@ const ShipmentFormModal = ({ open, onClose, shipmentData }) => {
         <Typography variant="h6" component="h2">
           {shipmentData ? "Edit Shipment" : "Create Shipment"}
         </Typography>
-        <ShipmentForm initialValues={shipmentData} onClose={onClose} />
-        <Button onClick={onClose} variant="contained" color="secondary" sx={{ mt: 2 }}>
+        <ShipmentForm action={shipmentData ? "Edit Shipment" : "Create Shipment"} initialValues={shipmentData} onClose={onClose} />
+        <Button
+          onClick={onClose}
+          variant="contained"
+          color="secondary"
+          sx={{ mt: 2 }}
+        >
           Cancel
         </Button>
       </Box>

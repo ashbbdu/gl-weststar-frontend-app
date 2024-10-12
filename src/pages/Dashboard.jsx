@@ -2,8 +2,8 @@ import { Box, Card, CardContent, ListItemIcon, Typography } from '@mui/material'
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ShipmentsChart from '../components/ShipmentsChart';
-import { cardData } from '../dummydata';
 import { getAllShipment } from '../services/shippingApi';
+import { countAllStatuses } from '../utils/data';
 const Dashboard = () => {
   
     
@@ -11,7 +11,9 @@ const Dashboard = () => {
     const { token } = useSelector(state => state.auth)
     const dispatch = useDispatch();
     console.log(shippingData , "shiipingdata");
-
+    let val = countAllStatuses(shippingData)
+    console.log(val , "val");
+    
   
     useEffect(() => {
        dispatch(getAllShipment(token))
@@ -26,18 +28,22 @@ const Dashboard = () => {
         justifyContent="space-between"
         
       >
-        {cardData.map((res) => (
-          <Card key={res.id} sx={{ mb: 2, flex: 1, mx: { sm: 1 } }}>
-            <CardContent sx={{display : "flex" , alignItems : "center" , justifyContent : "center"}}>
-            <ListItemIcon sx={{color : "primary.main"}}>{<res.icon />}</ListItemIcon> 
-             
-            <Box>
-            <Typography color="text.secondary">{res.totalNumber}</Typography>
-            <Typography variant="p" sx={{fontWeight : "bold"}}>{res.status}</Typography>
-            </Box>
-            </CardContent>
-          </Card>
-        ))}
+        {val.map((res) => {
+            console.log(res ,"res");
+            
+            return (
+                <Card key={res.id} sx={{ mb: 2, flex: 1, mx: { sm: 1 } }}>
+                <CardContent sx={{display : "flex" , alignItems : "center" , justifyContent : "center"}}>
+                <ListItemIcon sx={{color : "primary.main"}}>{<res.icon />}</ListItemIcon> 
+                 
+                <Box>
+                <Typography color="text.secondary">{res.count}</Typography>
+                <Typography variant="p" sx={{fontWeight : "bold"}}>{res.status}</Typography>
+                </Box>
+                </CardContent>
+              </Card>
+            )
+        })}
       </Box>
 
       {/* Shipments Chart */}

@@ -6,7 +6,7 @@ export const themes = {
       palette: {
         mode: 'light',
         primary: { main: 'rgba(25, 118, 210, 0.85)' }, 
-        secondary: { main: 'rgba(255, 193, 7, 0.85)' }, // Bright amber as secondary
+        secondary: { main: 'rgba(255, 193, 7, 0.85)' }, 
         background: { default: '#f0f2f5' }, 
         text: { primary: '#333' },
         card : {default : "#ffffff" }
@@ -16,7 +16,7 @@ export const themes = {
       palette: {
         mode: 'dark',
         primary: { main: 'rgba(144, 202, 249, 0.85)' }, 
-        secondary: { main: 'rgba(255, 64, 129, 0.85)' }, // Pink as secondary
+        secondary: { main: 'rgba(255, 64, 129, 0.85)' }, 
         background: { default: '#1e1e1e' }, 
         text: { primary: '#e0e0e0' },
         card : {default : "#252525" }
@@ -25,8 +25,8 @@ export const themes = {
     red: {
       palette: {
         mode: 'light',
-        primary: { main: 'rgba(244, 67, 54, 0.85)' }, // Red
-        secondary: { main: 'rgba(255, 152, 0, 0.85)' }, // Deep orange as secondary
+        primary: { main: 'rgba(244, 67, 54, 0.85)' }, 
+        secondary: { main: 'rgba(255, 152, 0, 0.85)' }, 
         background: { default: '#ffebee' }, 
         text: { primary: '#b71c1c' },
         card : {default : "#ffffff" }
@@ -35,8 +35,8 @@ export const themes = {
     blue: {
       palette: {
         mode: 'light',
-        primary: { main: 'rgba(33, 150, 243, 0.85)' }, // Blue
-        secondary: { main: 'rgba(0, 188, 212, 0.85)' }, // Teal as secondary
+        primary: { main: 'rgba(33, 150, 243, 0.85)' }, 
+        secondary: { main: 'rgba(0, 188, 212, 0.85)' },
         background: { default: '#e3f2fd' }, 
         text: { primary: '#0d47a1' },
         card : {default : "#ffffff" }
@@ -45,8 +45,8 @@ export const themes = {
     green: {
       palette: {
         mode: 'light',
-        primary: { main: 'rgba(76, 175, 80, 0.85)' }, // Green
-        secondary: { main: 'rgba(255, 235, 59, 0.85)' }, // Yellow as secondary
+        primary: { main: 'rgba(76, 175, 80, 0.85)' },
+        secondary: { main: 'rgba(255, 235, 59, 0.85)' }, 
         background: { default: '#e8f5e9' }, 
         text: { primary: '#1b5e20' },
         card : {default : "#ffffff" }

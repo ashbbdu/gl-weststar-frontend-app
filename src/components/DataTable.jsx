@@ -34,7 +34,7 @@ const DataTable = ({ data, shipmetTableHeader }) => {
 
   return (
     <Box sx={{ width: "100%" }}>
-      <TableContainer component={Paper} style={{height : 550 , whiteSpace : "nowrap"}}>
+      <TableContainer component={Paper} style={{height : 500 , whiteSpace : "nowrap"}}>
         <Table>
           <TableHead variant="primary">
             <TableRow sx={{ backgroundColor: "#1976d2", color: "#fff" }}>

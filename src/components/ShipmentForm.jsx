@@ -3,7 +3,7 @@ import { Field, Form, Formik } from "formik";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
-import { creteShipment } from "../services/shippingApi";
+import { creteShipment, updateShipment } from "../services/shippingApi";
 
 const validationSchema = Yup.object().shape({
   shipmentNumber: Yup.string().required("Shipment Number is required"),
@@ -30,7 +30,7 @@ const statusOptions = [
   { value: "Delayed", label: "Delayed" },
 ];
 
-export default function ShipmentForm({ initialValues = {}, onClose , action}) {
+export default function ShipmentForm({ initialValues = {}, onClose , action , id}) {
     const dispatch = useDispatch()
     const { token } = useSelector(state => state.auth)
 
@@ -65,9 +65,9 @@ export default function ShipmentForm({ initialValues = {}, onClose , action}) {
       }}
       validationSchema={validationSchema}
       onSubmit={(values) => {
-        console.log(values);
-        // Add edit logic here
-        action === "Edit Shipment" ? console.log("Edit ") :   dispatch(creteShipment(values , token));
+        console.log(values , "values");
+        
+        action === "Edit Shipment" ? dispatch(updateShipment(values , id , token)) :   dispatch(creteShipment(values , token));
         
       
         onClose();
@@ -224,7 +224,7 @@ export default function ShipmentForm({ initialValues = {}, onClose , action}) {
 
       <Box mt={2}>
         <Button type="submit" variant="contained" color="primary" fullWidth>
-          Submit
+         {action === "Edit Shipment" ? "Update" : "Create"}
         </Button>
       </Box>
     </Form>

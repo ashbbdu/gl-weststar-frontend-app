@@ -23,74 +23,70 @@ export function getAllShipment(token) {
   };
 }
 
-export function creteShipment(values , token) {
-    return async (dispatch) => {
-      dispatch(setLoading(true));
-      try {
-        const response = await apiConnector(
-          "POST",
-          shipmentEndpoints.CREATE_NEW_SHIPMENT_API,
-            values,
-          { Authorization: `Bearer ${token}` }
-        );
-        console.log(response);
-        if(response.status === 201) {
-            dispatch(getAllShipment(token))
-        }
-      } catch (error) {
-        console.log(error, "error");
-        //   dispatch(setShippingData([]))
+export function creteShipment(values, token) {
+  return async (dispatch) => {
+    dispatch(setLoading(true));
+    try {
+      const response = await apiConnector(
+        "POST",
+        shipmentEndpoints.CREATE_NEW_SHIPMENT_API,
+        values,
+        { Authorization: `Bearer ${token}` }
+      );
+      console.log(response);
+      if (response.status === 201) {
+        dispatch(getAllShipment(token));
       }
-      dispatch(setLoading(false));
-    };
+    } catch (error) {
+      console.log(error, "error");
+      //   dispatch(setShippingData([]))
+    }
+    dispatch(setLoading(false));
+  };
 }
 
-
-export function updateShipment(id , token) {
-    return async (dispatch) => {
-      dispatch(setLoading(true));
-      try {
-        const response = await apiConnector(
-          "DELETE",
-         
-          `${shipmentEndpoints.DELETE_SHIPMENT_API}/${id}`,
-          null,
-          { Authorization: `Bearer ${token}` }
-        );
-        console.log(response);
-        toast.success(response.data.msg)
-        if(response.status === 200) {
-            dispatch(getAllShipment(token))
-        }
-      } catch (error) {
-        console.log(error, "error");
-        //   dispatch(setShippingData([]))
+export function updateShipment(values, id, token) {
+  return async (dispatch) => {
+    dispatch(setLoading(true));
+    try {
+      const response = await apiConnector(
+        "PUT",
+        `${shipmentEndpoints.UPDATE_SHIPMENT_API}/${id}`,
+        values,
+        { Authorization: `Bearer ${token}` }
+      );
+      console.log(response);
+      toast.success(response.data.message);
+      if (response.status === 200) {
+        dispatch(getAllShipment(token));
       }
-      dispatch(setLoading(false));
-    };
+    } catch (error) {
+      console.log(error, "error");
+      //   dispatch(setShippingData([]))
+    }
+    dispatch(setLoading(false));
+  };
 }
 
+export function deleteShipment(id, token) {
+  return async (dispatch) => {
+    dispatch(setLoading(true));
+    try {
+      const response = await apiConnector(
+        "DELETE",
 
-export function deleteShipment(id , token) {
-    return async (dispatch) => {
-      dispatch(setLoading(true));
-      try {
-        const response = await apiConnector(
-          "DELETE",
-         
-          `${shipmentEndpoints.DELETE_SHIPMENT_API}/${id}`,
-          null,
-          { Authorization: `Bearer ${token}` }
-        );
-        console.log(response);
-        toast.success(response.data.msg)
-        if(response.status === 200) {
-            dispatch(getAllShipment(token))
-        }
-      } catch (error) {
-        console.log(error, "error");
-        //   dispatch(setShippingData([]))
+        `${shipmentEndpoints.UPDATE_SHIPMENT_API}/${id}`,
+        null,
+        { Authorization: `Bearer ${token}` }
+      );
+      toast.success(response.data.msg);
+      if (response.status === 200) {
+        dispatch(getAllShipment(token));
       }
-      dispatch(setLoading(false));
-    };
+    } catch (error) {
+      console.log(error, "error");
+      toast.error("Something went wrong !");
+    }
+    dispatch(setLoading(false));
+  };
 }

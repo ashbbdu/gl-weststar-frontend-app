@@ -1,4 +1,5 @@
-import { Box, Button, Modal, Typography } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import { Box, Modal, Typography } from "@mui/material";
 import React from "react";
 import ShipmentForm from "./ShipmentForm";
 
@@ -28,18 +29,26 @@ const ShipmentFormModal = ({ open, onClose, shipmentData }) => {
       aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
-        <Typography variant="h6" component="h2">
-          {shipmentData ? "Edit Shipment" : "Create Shipment"}
+        <Typography variant="h6" component="h2" style={{display : "flex" , justifyContent : "space-between"}}>
+          <div>{shipmentData ? "Edit Shipment" : "Create Shipment"}</div>
+          <div onClick={onClose} style={{ cursor: "pointer" }}>
+            <CloseIcon />
+          </div>
         </Typography>
-        <ShipmentForm action={shipmentData ? "Edit Shipment" : "Create Shipment"} initialValues={shipmentData} onClose={onClose} />
-        <Button
+        <ShipmentForm
+          action={shipmentData ? "Edit Shipment" : "Create Shipment"}
+          initialValues={shipmentData}
+          onClose={onClose}
+          id={shipmentData._id}
+        />
+        {/* <Button
           onClick={onClose}
           variant="contained"
           color="secondary"
           sx={{ mt: 2 }}
         >
           Cancel
-        </Button>
+        </Button> */}
       </Box>
     </Modal>
   );

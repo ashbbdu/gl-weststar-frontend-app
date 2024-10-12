@@ -18,7 +18,7 @@ const ShpmentDetails = () => {
   return (
     <div>
         <div className='modal-container'>
-          <CommonModal title="Add a new Shipment" component={ShipmentForm} action={"+ New Shipment"} />
+          <CommonModal title="Create Shipment" component={ShipmentForm} action={"+ New Shipment"} />
         </div>
         <div >
             <DataTable data={shippingData} shipmetTableHeader={shippigDetailsTableHeader} />

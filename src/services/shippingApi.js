@@ -23,7 +23,7 @@ export function getAllShipment(token) {
   };
 }
 
-export function creteShipment(values, token , onClose) {
+export function creteShipment(values, token ) {
   return async (dispatch) => {
     dispatch(setLoading(true));
     try {
@@ -34,10 +34,9 @@ export function creteShipment(values, token , onClose) {
         { Authorization: `Bearer ${token}` }
       );
       console.log(response);
-      onClose()
       if (response.status === 201) {
         dispatch(getAllShipment(token));
-        onClose()
+        // onClose()
       }
     } catch (error) {
       console.log(error, "error");

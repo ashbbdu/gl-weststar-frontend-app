@@ -114,3 +114,17 @@ export const shippigDetailsTableHeader = [
     title: "Action",
   },
 ];
+
+
+export const transportTypes = [
+    { value: "Air", label: "Air" },
+    { value: "Sea", label: "Sea" },
+    { value: "Land", label: "Land" },
+  ];
+  
+export const statusOptions = [
+    { value: "In Transit", label: "In Transit" },
+    { value: "Delivered", label: "Delivered" },
+    { value: "Pending", label: "Pending" },
+    { value: "Delayed", label: "Delayed" },
+  ];

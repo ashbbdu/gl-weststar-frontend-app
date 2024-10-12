@@ -2,54 +2,19 @@ import { Box, Button, MenuItem, TextField } from "@mui/material";
 import { Field, Form, Formik } from "formik";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import * as Yup from "yup";
+import { statusOptions, transportTypes } from "../constants";
 import { creteShipment, updateShipment } from "../services/shippingApi";
+import { formatDate } from "../utils/utils";
+import { shippingSchema } from "../utils/validationSchema";
 
-const validationSchema = Yup.object().shape({
-  shipmentNumber: Yup.string().required("Shipment Number is required"),
-  transportType: Yup.string().required("Transport Type is required"),
-  portOfLoading: Yup.string().required("Port of Loading is required"),
-  portOfDischarge: Yup.string().required("Port of Discharge is required"),
-  estimatedTimeOfDeparture: Yup.date().required("ETD is required"),
-  actualTimeOfDeparture: Yup.date().required("ATD is required"),
-  estimatedTimeOfArrival: Yup.date().required("ETA is required"),
-  actualTimeOfArrival: Yup.date().required("ATA is required"),
-  status: Yup.string().required("Status is required"),
-});
 
-const transportTypes = [
-  { value: "Air", label: "Air" },
-  { value: "Sea", label: "Sea" },
-  { value: "Land", label: "Land" },
-];
 
-const statusOptions = [
-  { value: "In Transit", label: "In Transit" },
-  { value: "Delivered", label: "Delivered" },
-  { value: "Pending", label: "Pending" },
-  { value: "Delayed", label: "Delayed" },
-];
 
 export default function ShipmentForm({ initialValues = {}, onClose , action , id}) {
     const dispatch = useDispatch()
     const { token } = useSelector(state => state.auth)
 
-    function formatDate(dateString) {
-        // Create a new Date object from the input string
-        const date = new Date(dateString);
-      
-        // Extract year, month, and day
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0'); // Adding 1 to month as it's zero-indexed
-        const day = String(date.getDate()).padStart(2, '0');
-      
-        // Extract hours and minutes
-        const hours = String(date.getHours()).padStart(2, '0');
-        const minutes = String(date.getMinutes()).padStart(2, '0');
-      
-        // Return the formatted date in 'YYYY-MM-DDTHH:mm' format
-        return `${year}-${month}-${day}T${hours}:${minutes}`;
-      }
+  
   return (
     <Formik
       initialValues={{
@@ -63,7 +28,7 @@ export default function ShipmentForm({ initialValues = {}, onClose , action , id
         actualTimeOfArrival: formatDate(initialValues.actualTimeOfArrival) || "",
         status: initialValues.status || "In Transit",
       }}
-      validationSchema={validationSchema}
+      validationSchema={shippingSchema}
       onSubmit={(values) => {
     
         action === "Edit Shipment" ? dispatch(updateShipment(values , id , token , onClose)) :   dispatch(creteShipment(values , token , onClose ));

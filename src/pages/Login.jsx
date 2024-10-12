@@ -7,6 +7,7 @@ import { selectTheme } from '../redux/themeSlice';
 import { login } from '../services/authApi';
 
 import backgroundImage from '../assets/industrial-port-de-barcelona-evening.jpg';
+import { loginSchema } from '../utils/validationSchema';
 
 const Login = () => {
   const themeChoice = useSelector(selectTheme);
@@ -17,10 +18,7 @@ const Login = () => {
       email: '',
       password: '',
     },
-    validationSchema: Yup.object({
-      email: Yup.string().email('Invalid email address').required('Email is required'),
-      password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
-    }),
+    validationSchema: Yup.object(loginSchema),
     onSubmit: (values) => {
       console.log('Logging in with:', values);
       const { email , password } = values;

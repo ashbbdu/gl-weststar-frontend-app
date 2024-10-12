@@ -46,7 +46,7 @@ export default function CommonModal({ component: Component, title, action }) {
             <CloseIcon />
           </div>
           </Typography>
-          <Component open={open} setOpen={setOpen} />
+          <Component open={open} setOpen={setOpen} onClose={handleClose} />
         </Box>
       </Modal>
     </div>

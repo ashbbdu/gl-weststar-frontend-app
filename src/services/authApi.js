@@ -18,7 +18,6 @@ export function signUp(firstName, lastName, email, password , navigate) {
         navigate("/");
       }
     } catch (error) {     
-        console.log(error ,"error");
            
       toast.error(error.response.data.msg);
     }
@@ -36,17 +35,13 @@ export function login(email, password, navigate) {
           password,
         })
   
-        console.log("LOGIN API RESPONSE............", response)
-  
         toast.success("Login Successful")
-        console.log(response.data.token , "login token")
         dispatch(setToken(response.data.token))
         dispatch(setUser({ ...response.data.user}))
         localStorage.setItem("token", JSON.stringify(response.data.token))
         localStorage.setItem("user", JSON.stringify(response.data.user))
         navigate("/dashboard")
       } catch (error) {
-        console.log("LOGIN API ERROR............", error)
         toast.error(error.response.data.message)
       }
       dispatch(setLoading(false))

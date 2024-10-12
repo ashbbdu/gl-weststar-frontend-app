@@ -10,7 +10,7 @@ import { shippingSchema } from "../utils/validationSchema";
 
 
 
-export default function ShipmentForm({ initialValues = {}, onClose , action , id}) {
+export default function ShipmentForm({ initialValues = {}, onClose , action , id}) {        
     const dispatch = useDispatch()
     const { token } = useSelector(state => state.auth)
 

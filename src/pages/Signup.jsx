@@ -24,7 +24,6 @@ const Signup = () => {
     },
     validationSchema: Yup.object(signupSchema),
     onSubmit: (values) => {
-      console.log('Signing up with:', values);
       const { firstName, lastName, email, password } = values;
       dispatch(signUp(firstName, lastName, email, password, navigate));
     },

@@ -48,14 +48,16 @@ export default function ConfirmationModal({ actionTitle , title , action , id}) 
           <Typography id="modal-modal-title" variant="h6" component="h2">
            {title}
           </Typography>
-          <Typography >
+         <Box sx={{marginTop : 2}}>
+         <Typography >
             <Button onClick={() => {
               setOpen(false)    
               handleDelete()
              
             }} variant='contained'>Confirm</Button>
-            <Button onClick={handleClose} variant='contained'>Cancel</Button>
+            <Button onClick={handleClose} sx={{marginLeft : 1}} variant='contained'>Cancel</Button>
           </Typography>
+         </Box>
         </Box>
       </Modal>
     </div>

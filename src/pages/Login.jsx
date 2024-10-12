@@ -20,7 +20,6 @@ const Login = () => {
     },
     validationSchema: Yup.object(loginSchema),
     onSubmit: (values) => {
-      console.log('Logging in with:', values);
       const { email , password } = values;
       dispatch(login(email , password , navigate));
     },

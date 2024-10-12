@@ -4,7 +4,6 @@ import React from "react";
 import ShipmentForm from "./ShipmentForm";
 
 const ShipmentFormModal = ({ open, onClose, shipmentData }) => {
-  console.log(shipmentData);
 
   const style = {
     position: "absolute",

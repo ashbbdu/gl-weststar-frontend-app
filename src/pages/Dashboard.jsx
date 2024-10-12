@@ -10,10 +10,7 @@ const Dashboard = () => {
     const { shippingData } = useSelector(state => state.shipping)
     const { token } = useSelector(state => state.auth)
     const dispatch = useDispatch();
-    console.log(shippingData , "shiipingdata");
     let val = countAllStatuses(shippingData)
-    console.log(val , "val");
-    
   
     useEffect(() => {
        dispatch(getAllShipment(token))
@@ -29,7 +26,6 @@ const Dashboard = () => {
         
       >
         {val.map((res) => {
-            console.log(res ,"res");
             
             return (
                 <Card key={res.id} sx={{ mb: 2, flex: 1, mx: { sm: 1 }, backgroundColor : "card.default" }}>

@@ -14,7 +14,6 @@ export function getAllShipment(token) {
         null,
         { Authorization: `Bearer ${token}` }
       );
-      console.log(response);
       dispatch(setShippingData(response?.data?.shipments));
     } catch (error) {
       console.log(error, "error");
@@ -23,7 +22,7 @@ export function getAllShipment(token) {
   };
 }
 
-export function creteShipment(values, token ) {
+export function creteShipment(values, token , onClose) {
   return async (dispatch) => {
     dispatch(setLoading(true));
     try {
@@ -33,12 +32,13 @@ export function creteShipment(values, token ) {
         values,
         { Authorization: `Bearer ${token}` }
       );
-      console.log(response);
       if (response.status === 201) {
+        toast.success(response.data.message)
         dispatch(getAllShipment(token));
-        // onClose()
+        onClose()
       }
     } catch (error) {
+    toast.error(error.response.data.message)
       console.log(error, "error");
     }
     dispatch(setLoading(false));
@@ -55,7 +55,6 @@ export function updateShipment(values, id, token , onClose) {
         values,
         { Authorization: `Bearer ${token}` }
       );
-      console.log(response);
       toast.success(response.data.message);
       if (response.status === 200) {
         dispatch(getAllShipment(token));
@@ -63,7 +62,6 @@ export function updateShipment(values, id, token , onClose) {
       }
     } catch (error) {
       console.log(error, "error");
-      //   dispatch(setShippingData([]))
     }
     dispatch(setLoading(false));
   };
@@ -76,7 +74,7 @@ export function deleteShipment(id, token) {
       const response = await apiConnector(
         "DELETE",
 
-        `${shipmentEndpoints.UPDATE_SHIPMENT_API}/${id}`,
+        `${shipmentEndpoints.DELETE_SHIPMENT_API}/${id}`,
         null,
         { Authorization: `Bearer ${token}` }
       );

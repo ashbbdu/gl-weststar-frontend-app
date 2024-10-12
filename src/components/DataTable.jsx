@@ -51,7 +51,8 @@ const DataTable = ({ data, shipmetTableHeader }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data
+           
+            {data.length > 0 ? data
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((shipment, index) => (
                 <TableRow key={index}>
@@ -89,7 +90,7 @@ const DataTable = ({ data, shipmetTableHeader }) => {
                     />
                   </TableCell>
                 </TableRow>
-              ))}
+              )) : <div>No Records Found !</div>}
           </TableBody>
         </Table>
       </TableContainer>

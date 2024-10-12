@@ -7,25 +7,44 @@ import {
   ListItemText,
 } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { sideBarMenuItems } from "../constants";
 import { logout } from "../services/authApi";
 
 const Sidebar = ({ open, toggleDrawer }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation(); // To track current URL
   const isSmallScreen = useMediaQuery("(max-width:600px)");
 
-  const [activeItem, setActiveItem] = useState(sideBarMenuItems[0].id);
+  // Get the saved active item from localStorage or use the current URL's path
+  const [activeItem, setActiveItem] = useState(() => {
+    const savedItem = localStorage.getItem("activeSidebarItem");
+    const matchedItem = sideBarMenuItems.find((item) => item.url === location.pathname);
+    return savedItem ? savedItem : matchedItem?.id || sideBarMenuItems[0].id;
+  });
+
+  // Set active item on first render based on the current route
+  useEffect(() => {
+    const matchedItem = sideBarMenuItems.find((item) => item.url === location.pathname);
+    if (matchedItem) {
+      setActiveItem(matchedItem.id);
+    }
+  }, [location.pathname]); // Update active item whenever the URL changes
+
+  // Save activeItem to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem("activeSidebarItem", activeItem);
+  }, [activeItem]);
 
   const handleLogout = () => {
     dispatch(logout(navigate));
   };
 
   const handleItemClick = (id) => {
-    setActiveItem(id); 
+    setActiveItem(id); // Update the active item state
   };
 
   const drawerContent = (
@@ -45,26 +64,26 @@ const Sidebar = ({ open, toggleDrawer }) => {
               className="menu-items"
               key={res.id}
               to={res.url}
-              onClick={() => handleItemClick(res.id)}
+              onClick={() => handleItemClick(res.id)} // Call handleItemClick when clicked
             >
               <ListItem
                 button
                 selected={activeItem === res.id}
                 sx={{
-                  padding : "16px",
+                  padding: "16px",
                   backgroundColor:
                     activeItem === res.id
-                      ? (theme) => theme.palette.primary.main 
+                      ? (theme) => theme.palette.primary.main
                       : "inherit",
                   color:
                     activeItem === res.id
-                      ? (theme) => theme.palette.text.secondary 
+                      ? (theme) => theme.palette.text.secondary
                       : "inherit",
                   "&:hover": {
                     backgroundColor:
                       activeItem === res.id
-                        ? (theme) => theme.palette.primary.main 
-                        : (theme) => theme.palette.action.hover, 
+                        ? (theme) => theme.palette.primary.main
+                        : (theme) => theme.palette.action.hover,
                   },
                 }}
               >

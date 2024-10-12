@@ -1,6 +1,5 @@
-import { Backdrop, Box } from '@mui/material';
+import { Backdrop, Box, CircularProgress } from '@mui/material';
 import React from 'react';
-import loaderSvg from "../assets/Hourglass.gif";
 const Loader = () => {
   return (
     <Backdrop
@@ -12,8 +11,7 @@ const Loader = () => {
       open={true}
     >
       <Box display="flex" flexDirection="column" alignItems="center">
-        {/* <CircularProgress color="inherit" /> */}
-        <img src={loaderSvg} alt='loader-img' />
+        <CircularProgress color="inherit" />
       </Box>
     </Backdrop>
   );

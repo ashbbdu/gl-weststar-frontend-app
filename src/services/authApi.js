@@ -41,7 +41,6 @@ export function login(email, password, navigate) {
         toast.success("Login Successful")
         console.log(response.data.token , "login token")
         dispatch(setToken(response.data.token))
-      
         dispatch(setUser({ ...response.data.user}))
          localStorage.setItem("token", JSON.stringify(response.data.token))
         localStorage.setItem("user", JSON.stringify(response.data.user))

@@ -29,9 +29,9 @@ const formatDate = (dateString) => {
 };
 
 // Helper function to get unique years from shipment data
-const getUniqueYears = (shipmentData, dateType) => {
+const getUniqueYears = (shipmentData) => {
   return Array.from(
-    new Set(shipmentData.map((shipment) => new Date(shipment[dateType]).getFullYear()))
+    new Set(shipmentData.map((shipment) => new Date(shipment.createdAt).getFullYear()))
   );
 };
 
@@ -43,36 +43,79 @@ const getMonthNames = () => {
   ];
 };
 
-// Helper function to get unique months (1-12)
-const getUniqueMonths = () => getMonthNames().map((_, i) => i + 1);
+// Helper function to get days in a month
+const getDaysInMonth = (year, month) => {
+  return new Date(year, month, 0).getDate();
+};
 
 const ShipmentsChart = ({ shipmentData }) => {
-  const [selectedYear, setSelectedYear] = useState('All');
-  const [selectedMonth, setSelectedMonth] = useState('All');
-  const [dateType, setDateType] = useState('estimatedTimeOfArrival'); // Default to filtering by estimatedTimeOfArrival
 
-  const uniqueYears = useMemo(() => getUniqueYears(shipmentData, dateType), [shipmentData, dateType]);
-  const uniqueMonths = getMonthNames();
+  // Get the current year and month
+  const currentYear = new Date().getFullYear();
+  const currentMonth = new Date().getMonth() + 1; // Months are 0-indexed
 
-  // Filter shipments by selected year, month, and date type (arrival or departure)
+  // Set default state to current year and month
+  const [selectedYear, setSelectedYear] = useState(currentYear);
+  const [selectedMonth, setSelectedMonth] = useState(currentMonth);
+
+  const uniqueYears = useMemo(() => getUniqueYears(shipmentData), [shipmentData]);
+  const monthNames = getMonthNames();
+
+  // Filter shipments by selected year and month
   const filteredShipmentData = useMemo(() => {
     return shipmentData.filter((shipment) => {
-      const shipmentDate = new Date(shipment[dateType]);
+      const shipmentDate = new Date(shipment.createdAt);
       const yearMatches = selectedYear === 'All' || shipmentDate.getFullYear() === Number(selectedYear);
       const monthMatches = selectedMonth === 'All' || shipmentDate.getMonth() + 1 === Number(selectedMonth);
       return yearMatches && monthMatches;
     });
-  }, [shipmentData, selectedYear, selectedMonth, dateType]);
+  }, [shipmentData, selectedYear, selectedMonth]);
 
-  // Count the number of shipments by date
+  // Count the number of shipments by the createdAt date
   const shipmentCountsByDate = filteredShipmentData.reduce((acc, shipment) => {
-    const date = formatDate(shipment[dateType]);
+    const date = formatDate(shipment.createdAt);
     acc[date] = (acc[date] || 0) + 1;
     return acc;
   }, {});
 
-  const labels = Object.keys(shipmentCountsByDate); // Extract unique dates
-  const dataValues = Object.values(shipmentCountsByDate); // Extract counts for each date
+  const labels = useMemo(() => {
+    if (selectedYear === 'All' && selectedMonth === 'All') {
+      // Show shipments per year if both year and month are "All"
+      return uniqueYears.map(String);
+    } else if (selectedYear !== 'All' && selectedMonth === 'All') {
+      // Show shipments per month if a year is selected but "All" months
+      return monthNames;
+    } else {
+      // Show day numbers (1-31) if a specific month and year are selected
+      const daysInMonth = getDaysInMonth(Number(selectedYear), Number(selectedMonth));
+      return Array.from({ length: daysInMonth }, (_, i) => `${i + 1}`);
+    }
+  }, [selectedYear, selectedMonth, uniqueYears, monthNames]);
+
+  const dataValues = useMemo(() => {
+    if (selectedYear === 'All' && selectedMonth === 'All') {
+      // Aggregate shipments by year
+      return uniqueYears.map((year) => {
+        return shipmentData.filter(
+          (shipment) => new Date(shipment.createdAt).getFullYear() === year
+        ).length;
+      });
+    } else if (selectedYear !== 'All' && selectedMonth === 'All') {
+      // Aggregate shipments by month for the selected year
+      return monthNames.map((_, monthIndex) => {
+        return shipmentData.filter(
+          (shipment) => new Date(shipment.createdAt).getFullYear() === Number(selectedYear) &&
+                        new Date(shipment.createdAt).getMonth() === monthIndex
+        ).length;
+      });
+    } else {
+      // Count shipments per day in the selected month and year
+      return labels.map((day) => {
+        const dateString = `${selectedYear}-${String(selectedMonth).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        return shipmentCountsByDate[dateString] || 0;
+      });
+    }
+  }, [selectedYear, selectedMonth, shipmentData, uniqueYears, monthNames, shipmentCountsByDate, labels]);
 
   const data = {
     labels: labels,
@@ -96,14 +139,24 @@ const ShipmentsChart = ({ shipmentData }) => {
       },
       title: {
         display: true,
-        text: `Shipments by ${dateType === 'estimatedTimeOfArrival' ? 'Estimated Time of Arrival' : 'Estimated Time of Departure'}`,
+        text:
+          selectedYear === 'All' && selectedMonth === 'All'
+            ? 'Shipments by Year'
+            : selectedYear !== 'All' && selectedMonth === 'All'
+            ? `Shipments in ${selectedYear} by Month`
+            : `Shipments by Created Date (Year: ${selectedYear}, Month: ${monthNames[selectedMonth - 1]})`,
       },
     },
     scales: {
       x: {
         title: {
           display: true,
-          text: 'Date',
+          text:
+            selectedYear === 'All' && selectedMonth === 'All'
+              ? 'Year'
+              : selectedYear !== 'All' && selectedMonth === 'All'
+              ? 'Month'
+              : 'Day of the Month',
         },
       },
       y: {
@@ -114,16 +167,15 @@ const ShipmentsChart = ({ shipmentData }) => {
         beginAtZero: true,
       },
     },
-    // Reduce the bar thickness
     barThickness: 20,
-    maintainAspectRatio: false, // Ensures it adapts better to smaller screens
+    maintainAspectRatio: false, 
   };
 
   return (
     <Box sx={{ p: 2, width: '100%' }}>
       <Paper elevation={3} sx={{ p: 2, mb: 2 }}>
         <Typography variant="subtitle1" gutterBottom>
-          Filter Shipments by Year, Month, and Date Type
+          Filter Shipments by Year and Month
         </Typography>
 
         <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
@@ -155,25 +207,11 @@ const ShipmentsChart = ({ shipmentData }) => {
               sx={{ fontSize: '0.875rem' }}
             >
               <MenuItem value="All">All</MenuItem>
-              {uniqueMonths.map((month, index) => (
+              {monthNames.map((month, index) => (
                 <MenuItem key={index} value={index + 1}>
                   {month}
                 </MenuItem>
               ))}
-            </Select>
-          </FormControl>
-
-          {/* Date Type Selector (Arrival or Departure) */}
-          <FormControl sx={{ flex: 1, minWidth: 120 }}>
-            <InputLabel sx={{ fontSize: '0.875rem' }}>Date Type</InputLabel>
-            <Select
-              value={dateType}
-              onChange={(e) => setDateType(e.target.value)}
-              label="Date Type"
-              sx={{ fontSize: '0.875rem' }}
-            >
-              <MenuItem value="estimatedTimeOfArrival">Estimated Time of Arrival</MenuItem>
-              <MenuItem value="estimatedTimeOfDeparture">Estimated Time of Departure</MenuItem>
             </Select>
           </FormControl>
         </Box>
@@ -181,9 +219,8 @@ const ShipmentsChart = ({ shipmentData }) => {
 
       <Paper elevation={3} sx={{ p: 2 }}>
         <Typography variant="h6" gutterBottom>
-          Shipments by {dateType === 'estimatedTimeOfArrival' ? 'Estimated Time of Arrival' : 'Estimated Time of Departure'}
+          Shipments by Created Date
         </Typography>
-        {/* Ensure the chart is responsive */}
         <Box sx={{ height: { xs: 300, sm: 400, md: 500 }, width: '100%' }}>
           <Bar data={data} options={options} />
         </Box>

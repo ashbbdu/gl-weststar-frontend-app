@@ -1,79 +1,47 @@
-import { Box, Card, CardContent, Typography } from '@mui/material';
-import React from 'react';
+import { Box, Card, CardContent, ListItemIcon, Typography } from '@mui/material';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import ShipmentsChart from '../components/ShipmentsChart';
-
+import { cardData } from '../dummydata';
+import { getAllShipment } from '../services/shippingApi';
 const Dashboard = () => {
-  const shipmentData = [
-    {
-      shipmentNumber: 'SHP001',
-      status: 'Pending',
-      transportType: 'Air',
-      portOfLoading: 'New York',
-      portOfDischarge: 'London',
-      estimatedTimeOfDeparture: '2024-10-15T09:30:00',
-      actualTimeOfDeparture: null,
-      estimatedTimeOfArrival: '2024-10-18T14:00:00',
-      actualTimeOfArrival: null
-    },
-    {
-      shipmentNumber: 'SHP002',
-      status: 'In Transit',
-      transportType: 'Sea',
-      portOfLoading: 'Shanghai',
-      portOfDischarge: 'Los Angeles',
-      estimatedTimeOfDeparture: '2024-10-05T06:00:00',
-      actualTimeOfDeparture: '2024-10-05T06:00:00',
-      estimatedTimeOfArrival: '2024-12-20T08:00:00',
-      actualTimeOfArrival: null
-    },
-    {
-      shipmentNumber: 'SHP003',
-      status: 'Delayed',
-      transportType: 'Land',
-      portOfLoading: 'Berlin',
-      portOfDischarge: 'Paris',
-      estimatedTimeOfDeparture: '2024-10-01T12:00:00',
-      actualTimeOfDeparture: '2024-10-01T13:30:00',
-      estimatedTimeOfArrival: '2024-21-02T16:00:00',
-      actualTimeOfArrival: null
-    },
-    {
-      shipmentNumber: 'SHP004',
-      status: 'Delivered',
-      transportType: 'Air',
-      portOfLoading: 'Tokyo',
-      portOfDischarge: 'Sydney',
-      estimatedTimeOfDeparture: '2024-09-25T05:00:00',
-      actualTimeOfDeparture: '2024-09-25T05:00:00',
-      estimatedTimeOfArrival: '2024-09-27T10:00:00',
-      actualTimeOfArrival: '2024-09-27T09:45:00'
-    },
-    // Add more shipments as needed
-  ];
+  
+    
+    const { shippingData } = useSelector(state => state.shipping)
+    const { token } = useSelector(state => state.auth)
+    const dispatch = useDispatch();
+    console.log(shippingData , "shiipingdata");
+
+  
+    useEffect(() => {
+       dispatch(getAllShipment(token))
+    },[])
 
   return (
-    <Box sx={{ p: 2 }}>
+    <Box>
 
       <Box
         display="flex"
-        flexDirection={{ xs: 'column', sm: 'row' }}
+        flexDirection={{ xs: 'column', md : 'row' }}
         justifyContent="space-between"
-        mb={2}
-        height={200}
         
       >
-        {Array.from({ length: 4 }).map((_, index) => (
-          <Card key={index} sx={{ mb: 2, flex: 1, mx: { sm: 1 } }}>
-            <CardContent>
-              <Typography variant="h6">Card {index + 1}</Typography>
-              <Typography color="text.secondary">Details for card {index + 1}</Typography>
+        {cardData.map((res) => (
+          <Card key={res.id} sx={{ mb: 2, flex: 1, mx: { sm: 1 } }}>
+            <CardContent sx={{display : "flex" , alignItems : "center" , justifyContent : "center"}}>
+            <ListItemIcon sx={{color : "primary.main"}}>{<res.icon />}</ListItemIcon> 
+             
+            <Box>
+            <Typography color="text.secondary">{res.totalNumber}</Typography>
+            <Typography variant="p" sx={{fontWeight : "bold"}}>{res.status}</Typography>
+            </Box>
             </CardContent>
           </Card>
         ))}
       </Box>
 
       {/* Shipments Chart */}
-      <ShipmentsChart shipmentData={shipmentData} />
+      <ShipmentsChart shipmentData={shippingData} />
     </Box>
   );
 };

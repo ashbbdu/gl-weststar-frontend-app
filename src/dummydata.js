@@ -1,3 +1,6 @@
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import PendingActionsIcon from '@mui/icons-material/PendingActions';
+
 const shipments = [
   {
     shipmentNumber: "SHP001",
@@ -66,3 +69,29 @@ const shipments = [
     actualTimeOfArrival: null,
   },
 ];
+export const cardData = [
+    {
+        id : 1,
+        status : "In Transit",
+        totalNumber  : 4,
+        icon : LocalShippingIcon,
+    },
+    {
+        id : 2,
+        status : "Pending",
+        totalNumber  : 3,
+        icon : PendingActionsIcon,
+    },
+    {
+        id : 3,
+        status : "Delievered",
+        totalNumber  : 5,
+        icon : PendingActionsIcon,
+    },
+    { 
+        id : 4,
+        status : "Pending",
+        totalNumber  : 3,
+        icon : PendingActionsIcon,
+    }
+]

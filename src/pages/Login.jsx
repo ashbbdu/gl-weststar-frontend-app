@@ -6,7 +6,7 @@ import * as Yup from 'yup';
 import { selectTheme } from '../redux/themeSlice';
 import { login } from '../services/authApi';
 
-import backgroundImage from '../assets/industrial-port-de-barcelona-evening.jpg';
+import backgroundImage from '../assets/logistics-transportation-container-cargo-ship-cargo-plane-with-working-crane-bridge-shipyard-sunrise-logistic-import-export-transport-industry-background-ai-generative.jpg';
 import { loginSchema } from '../utils/validationSchema';
 
 const Login = () => {

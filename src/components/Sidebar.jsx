@@ -18,7 +18,6 @@ const Sidebar = ({ open, toggleDrawer }) => {
   const navigate = useNavigate();
   const isSmallScreen = useMediaQuery("(max-width:600px)");
 
-  // Initialize state to track the active menu item, default to the first item
   const [activeItem, setActiveItem] = useState(sideBarMenuItems[0].id);
 
   const handleLogout = () => {
@@ -26,7 +25,7 @@ const Sidebar = ({ open, toggleDrawer }) => {
   };
 
   const handleItemClick = (id) => {
-    setActiveItem(id); // Set the clicked item as active
+    setActiveItem(id); 
   };
 
   const drawerContent = (
@@ -55,17 +54,17 @@ const Sidebar = ({ open, toggleDrawer }) => {
                   padding : "16px",
                   backgroundColor:
                     activeItem === res.id
-                      ? (theme) => theme.palette.primary.main // Use primary color from theme for active
+                      ? (theme) => theme.palette.primary.main 
                       : "inherit",
                   color:
                     activeItem === res.id
-                      ? (theme) => theme.palette.text.secondary // Use secondary text color from theme for active text
+                      ? (theme) => theme.palette.text.secondary 
                       : "inherit",
                   "&:hover": {
                     backgroundColor:
                       activeItem === res.id
-                        ? (theme) => theme.palette.primary.main // Keep active item's background the same on hover
-                        : (theme) => theme.palette.action.hover, // Change background on hover for non-active items
+                        ? (theme) => theme.palette.primary.main 
+                        : (theme) => theme.palette.action.hover, 
                   },
                 }}
               >

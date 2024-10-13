@@ -36,7 +36,6 @@ const formatDate = (dateString) => {
   return date.toISOString().split("T")[0];
 };
 
-// Helper function to get unique years from shipment data
 const getUniqueYears = (shipmentData) => {
   return Array.from(
     new Set(
@@ -45,7 +44,6 @@ const getUniqueYears = (shipmentData) => {
   );
 };
 
-// Helper function to get month names
 const getMonthNames = () => {
   return [
     "January",
@@ -63,17 +61,14 @@ const getMonthNames = () => {
   ];
 };
 
-// Helper function to get days in a month
 const getDaysInMonth = (year, month) => {
   return new Date(year, month, 0).getDate();
 };
 
 const ShipmentsChart = ({ shipmentData }) => {
-  // Get the current year and month
   const currentYear = new Date().getFullYear();
-  const currentMonth = new Date().getMonth() + 1; // Months are 0-indexed
+  const currentMonth = new Date().getMonth() + 1; 
 
-  // Set default state to current year and month
   const [selectedYear, setSelectedYear] = useState(currentYear);
   const [selectedMonth, setSelectedMonth] = useState(currentMonth);
 
@@ -117,14 +112,12 @@ const ShipmentsChart = ({ shipmentData }) => {
 
   const dataValues = useMemo(() => {
     if (selectedYear === "All" && selectedMonth === "All") {
-      // Aggregate shipments by year
       return uniqueYears.map((year) => {
         return shipmentData.filter(
           (shipment) => new Date(shipment.createdAt).getFullYear() === year
         ).length;
       });
     } else if (selectedYear !== "All" && selectedMonth === "All") {
-      // Aggregate shipments by month for the selected year
       return monthNames.map((_, monthIndex) => {
         return shipmentData.filter(
           (shipment) =>
@@ -216,7 +209,6 @@ const ShipmentsChart = ({ shipmentData }) => {
         </Typography>
 
         <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2 }}>
-          {/* Year Selector */}
           <FormControl sx={{ flex: 1, minWidth: 100 }}>
             <InputLabel sx={{ fontSize: "0.875rem" }}>Year</InputLabel>
             <Select
@@ -234,7 +226,6 @@ const ShipmentsChart = ({ shipmentData }) => {
             </Select>
           </FormControl>
 
-          {/* Month Selector */}
           <FormControl sx={{ flex: 1, minWidth: 100 }}>
             <InputLabel sx={{ fontSize: "0.875rem" }}>Month</InputLabel>
             <Select

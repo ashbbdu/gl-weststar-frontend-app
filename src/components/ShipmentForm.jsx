@@ -54,8 +54,6 @@ export default function ShipmentForm({ initialValues = {}, onClose , action , id
             helperText={touched.shipmentNumber && errors.shipmentNumber}
           />
         </Box>
-
-        {/* Transport Type Field */}
         <Box m={1}>
           <Field
             as={TextField}

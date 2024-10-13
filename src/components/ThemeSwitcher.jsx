@@ -16,16 +16,16 @@ const ThemeSwitcher = () => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
-    setAnchorEl(event.currentTarget); // Open Popover anchored to the button
+    setAnchorEl(event.currentTarget); 
   };
 
   const handleClose = () => {
-    setAnchorEl(null); // Close Popover
+    setAnchorEl(null); 
   };
 
   const handleThemeChange = (theme) => {
     dispatch(toggleTheme(theme));
-    handleClose(); // Close Popover after theme selection
+    handleClose();
   };
 
   const open = Boolean(anchorEl);
@@ -57,11 +57,11 @@ const ThemeSwitcher = () => {
       >
         <Grid
           container
-          direction="row" // Horizontal alignment
-          spacing={2} // Space between buttons
+          direction="row" 
+          spacing={2}
           sx={{
             padding: 2,
-            justifyContent: 'center', // Center-align the buttons in the row
+            justifyContent: 'center', 
           }}
         >
           {themes.map((theme) => (
@@ -71,11 +71,11 @@ const ThemeSwitcher = () => {
                 onClick={() => handleThemeChange(theme.name)}
                 style={{
                   backgroundColor: theme.color,
-                  borderRadius: '50%', // Circular shape
-                  width: 40, // Circular button width
-                  height: 40, // Circular button height
-                  minWidth: 0, // Remove default button width
-                  padding: 0, // No extra padding
+                  borderRadius: '50%',
+                  width: 40, 
+                  height: 40,
+                  minWidth: 0, 
+                  padding: 0,
                 }}
               />
             </Grid>

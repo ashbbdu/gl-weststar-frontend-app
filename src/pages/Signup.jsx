@@ -1,4 +1,3 @@
-// src/components/Signup.jsx
 import { Box, Button, Paper, TextField, Typography } from '@mui/material';
 import { useFormik } from 'formik';
 import React from 'react';

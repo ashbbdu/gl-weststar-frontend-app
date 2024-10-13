@@ -16,25 +16,20 @@ import { logout } from "../services/authApi";
 const Sidebar = ({ open, toggleDrawer }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const location = useLocation(); // To track current URL
+  const location = useLocation(); 
   const isSmallScreen = useMediaQuery("(max-width:600px)");
-
-  // Get the saved active item from localStorage or use the current URL's path
   const [activeItem, setActiveItem] = useState(() => {
     const savedItem = localStorage.getItem("activeSidebarItem");
     const matchedItem = sideBarMenuItems.find((item) => item.url === location.pathname);
     return savedItem ? savedItem : matchedItem?.id || sideBarMenuItems[0].id;
   });
 
-  // Set active item on first render based on the current route
   useEffect(() => {
     const matchedItem = sideBarMenuItems.find((item) => item.url === location.pathname);
     if (matchedItem) {
       setActiveItem(matchedItem.id);
     }
-  }, [location.pathname]); // Update active item whenever the URL changes
-
-  // Save activeItem to localStorage whenever it changes
+  }, [location.pathname]); 
   useEffect(() => {
     localStorage.setItem("activeSidebarItem", activeItem);
   }, [activeItem]);
@@ -44,7 +39,7 @@ const Sidebar = ({ open, toggleDrawer }) => {
   };
 
   const handleItemClick = (id) => {
-    setActiveItem(id); // Update the active item state
+    setActiveItem(id); 
   };
 
   const drawerContent = (
@@ -64,7 +59,7 @@ const Sidebar = ({ open, toggleDrawer }) => {
               className="menu-items"
               key={res.id}
               to={res.url}
-              onClick={() => handleItemClick(res.id)} // Call handleItemClick when clicked
+              onClick={() => handleItemClick(res.id)} 
             >
               <ListItem
                 button

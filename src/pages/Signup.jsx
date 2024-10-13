@@ -5,7 +5,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
-import backgroundImage from '../assets/logistics-transportation-container-cargo-ship-cargo-plane-with-working-crane-bridge-shipyard-sunrise-logistic-import-export-transport-industry-background-ai-generative.jpg';
+import backgroundImage from '../assets/backgroud-image.jpg';
 import { selectTheme } from '../redux/themeSlice';
 import { signUp } from '../services/authApi';
 import { signupSchema } from '../utils/validationSchema';

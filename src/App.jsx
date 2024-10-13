@@ -8,7 +8,6 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./App.css";
 import Loader from './components/Loader';
-import ThemeSwitcher from './components/ThemeSwitcher';
 import { themes } from './constants';
 import { selectTheme } from './redux/themeSlice';
 import Routing from './routing/Routing';
@@ -22,8 +21,7 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-  
-      <ThemeSwitcher />
+
       <div className=''>
        {loading &&  <Loader />}
         <ToastContainer />

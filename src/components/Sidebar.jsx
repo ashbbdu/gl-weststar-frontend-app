@@ -18,7 +18,6 @@ import { sideBarMenuItems } from "../constants";
 import { toggleTheme } from "../redux/themeSlice";
 import { logout } from "../services/authApi";
 
-// Theme options for switching
 const themes = [
   { name: 'light', color: '#f0f0f0' }, 
   { name: 'dark', color: '#333' }, 
@@ -38,7 +37,7 @@ const Sidebar = ({ open, toggleDrawer }) => {
     return savedItem ? savedItem : matchedItem?.id || sideBarMenuItems[0].id;
   });
 
-  const [anchorEl, setAnchorEl] = useState(null); // For theme popover
+  const [anchorEl, setAnchorEl] = useState(null);
 
   useEffect(() => {
     const matchedItem = sideBarMenuItems.find((item) => item.url === location.pathname);
@@ -59,7 +58,6 @@ const Sidebar = ({ open, toggleDrawer }) => {
     setActiveItem(id);
   };
 
-  // Theme switcher popover handling
   const handleThemeClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -132,7 +130,7 @@ const Sidebar = ({ open, toggleDrawer }) => {
             <ListItemText sx={{cursor : "pointer"}} primary={"Change Theme"} />
           </ListItem>
 
-          {/* Theme Switcher Popover */}
+        
           <Popover
             id={themeId}
             open={themeOpen}
